@@ -5,56 +5,49 @@
 #include <string>
 #include <ctime>
 #include <iomanip>
-#include <conio.h> // For getch() to hide password input
-
+#include <conio.h>
 using namespace std;
 
-// Function to clear the console screen
 void clearConsole() {
 #ifdef _WIN32
-    system("cls"); // Windows-specific clear screen command
+    system("cls");
 #else
-    system("clear"); // Linux/macOS-specific clear screen command
+    system("clear");
 #endif
 }
 
-// Function to display ASCII art
 void displayAsciiArt(const string& art) {
     cout << art << endl;
 }
 
-// ASCII art for WELCOME
 string welcomeArt = R"(
-__        __   _                            _         
-\ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   
- \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  
-  \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | 
-   \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  
+"  __        __   _                            _          "
+"  \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___    "
+"   \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \   "
+"    \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) |  "
+"     \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   "
 )";
 
-// ASCII art for TASK MANAGER
-string taskManagerArt = R"(
-   _______         _        __  __                                
-  |__   __|       | |      |  \/  |                               
-     | | __ _ ___ | |/ /   | \  / | ___ _ __   ___  __ _  ___ _ __ 
-     | |/ _` / __||   /    | |\/| |/ _ \ '_ \ / _ \/ _` |/ _ \ '__|
-     | | (_| \__ \| |\ \   | |  | |  __/ | | |  __/ (_| |  __/ |   
-     |_|\__,_|___/|_| \_\  |_|  |_|\___|_| |_|\___|\__, |\___|_|   
-                                                   __/ |           
-                                                  |___/            
-)";
-
-// ASCII art for MAIN MENU
 string mainMenuArt = R"(
- __  __       _         __  __                  
-|  \/  |     (_)       |  \/  |                 
-| \  / | __ _ _ _ __   | \  / | ___ _ __  _   _ 
-| |\/| |/ _` | | '_ \  | |\/| |/ _ \ '_ \| | | |
-| |  | | (_| | | | | | | |  | |  __/ | | | |_| |
-|_|  |_|\__,_|_|_| |_| |_|  |_|\___|_| |_|\__,_|
+"   _______         _        __  __                                   "
+"  |__   __|       | | _    |  \/  |                                  "
+"     | | __ _ ___ | |/ /   | \  / | ___ _ __   ___  __ _  ___ _ __   "
+"     | |/ _` / __||   /    | |\/| |/ _ | '_ \ / _ |/ _` |/ _ \ '__|  "
+"     | | (_| \__ \| \ \    | |  | | (_|| | | | (_|| (_| |  __/ |     "
+"     |_|\__,_|___/|_|\_\   |_|  |_|\__,|_| |_|\__,|\__, |\___|_|     "
+"                                                     _| |            "
+"                                                    |___|            "
 )";
 
-// Task structure
+string mainMenuArt = R"(
+"   __  __       _         __  __                    "
+"  |  \/  |     (_)       |  \/  |                   "
+"  | \  / | __ _ _ _ __   | \  / | ___ _ __  _   _   "
+"  | |\/| |/ _` | | '_ \  | |\/| |/ _ \ '_ \| | | |  "
+"  | |  | | (_| | | | | | | |  | |  __/ | | | |_| |  "
+"  |_|  |_|\__,_|_|_| |_| |_|  |_|\___|_| |_|\__,_|  "
+)";
+
 struct Task {
     int id;
     string name;
@@ -71,7 +64,6 @@ struct Task {
     }
 };
 
-// TaskManager class
 class TaskManager {
 private:
     list<Task> tasks;
@@ -80,7 +72,6 @@ private:
 
 public:
     TaskManager() : nextId(1) {}
-
     void addTask(const string& taskName, const string& deadline) {
         tasks.emplace_back(nextId, taskName, deadline);
         taskMap[nextId] = --tasks.end();
@@ -199,7 +190,6 @@ public:
     }
 };
 
-// User class
 class User {
 private:
     string username;
@@ -208,9 +198,9 @@ private:
     string getHiddenInput() {
         string input;
         char ch;
-        while ((ch = getch()) != '\r') { // '\r' detects Enter key
-            if (ch == '\b' && !input.empty()) { // '\b' detects Backspace
-                cout << "\b \b"; // Erase the last character
+        while ((ch = getch()) != '\r') {
+            if (ch == '\b' && !input.empty()) {
+                cout << "\b \b";
                 input.pop_back();
             } else if (ch != '\b') {
                 cout << '*';
@@ -262,7 +252,6 @@ public:
     }
 };
 
-// Main function
 int main() {
     User user;
     TaskManager taskManager;
